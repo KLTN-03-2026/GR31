@@ -1,0 +1,92 @@
+﻿using Infrastructure;
+using Application;
+using MediatR;
+using Application.Model;
+using Application.Interface.Hubs;
+using Domain.Common;
+using Infrastructure.Hubs;
+using Application.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddMemoryCache();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        policy => policy
+            .WithOrigins("http://localhost:3000", "https://localhost:3000", "http://localhost:5000", "http://127.0.0.1:5000", "http://192.168.1.5:5000", "http://localhost:5173", "https://sharingsystem.nnhdev.id.vn", "https://duy-tan-sharing-system.vercel.app", "https://nnhdev.id.vn") // ⚡ Chỉ cho phép frontend truy cập
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()); // ⚡ Bật chế độ gửi cookie/token
+});
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowReactApp",
+//        policy => policy
+//            .WithOrigins("http://127.0.0.1:5500") // ⚡ Chỉ cho phép frontend truy cập
+//            .AllowAnyMethod()
+//            .AllowAnyHeader()
+//            .AllowCredentials()); // ⚡ Bật chế độ gửi cookie/token
+//});
+
+
+// 🔹 Nạp User Secrets (nếu đang ở môi trường Development)
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
+// Add services to the container.
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddInfastructureServices(builder.Configuration);
+
+
+builder.Services.AddLogging();
+// C?u hình logging ?? xu?t log ra console
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+//add signalR
+builder.Services.AddSignalR();
+
+
+builder.Services.AddAuthorization();
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+//
+
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+
+
+
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+app.UseCors("AllowReactApp"); // 🚀 Sử dụng CORS
+app.UseAuthentication(); // ✅ Đảm bảo đăng nhập trước khi xác thực quyền
+app.UseAuthorization();
+app.UseStaticFiles(new StaticFileOptions
+{
+    ServeUnknownFileTypes = true, // Cho phép phục vụ file không có MIME type xác định
+    DefaultContentType = "video/mp4" // Nếu bị lỗi MIME type
+});
+
+//app.UseCors(); // ✅ Đặt trước SignalR
+
+app.MapHub<NotificationHub>("/notificationHub").RequireAuthorization(); // ✅ Chỉ ở tầng Web API
+app.MapHub<ChatHub>("/chatHub").RequireAuthorization(); // ✅ Chỉ ở tầng Web API
+app.MapHub<AIHub>("/aiHub"); // ✅ Chỉ ở tầng Web API
+
+app.MapControllers();
+app.Run();
