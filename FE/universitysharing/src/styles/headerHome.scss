@@ -1,0 +1,191 @@
+// headerHome.scss - Desktop Base
+$primary-color: #007bff;
+$text-main: #050505;
+$text-secondary: #65676b;
+$bg-hover: #f0f2f5;
+$border-color: #e4e6eb;
+$header-height: 60px;
+$transition: all 0.2s ease;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  height: $header-height;
+  z-index: 1000;
+  width: 100%;
+
+  // --- LOGO SECTION ---
+  .logoWeb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: $transition;
+
+      &:hover {
+        background-color: $bg-hover;
+      }
+
+      .logowebsite {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+
+      .app-name {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.1;
+
+        .university-text {
+          font-size: 15px;
+          font-weight: 800;
+          color: #1c1e21;
+        }
+
+        .sharing-text {
+          font-size: 13px;
+          font-weight: 600;
+          color: $primary-color;
+        }
+      }
+    }
+
+    // Ẩn nút search mobile trên desktop
+    .btn-search-mobile {
+      display: none;
+    }
+  }
+
+  // --- SEARCH BAR SECTION ---
+  .search {
+    flex: 1;
+    max-width: 500px;
+    margin: 0 20px;
+    
+    .close-search-btn {
+      display: none; // Ẩn trên desktop
+    }
+
+    .search-form {
+      width: 100%;
+      
+      .search-container {
+        position: relative;
+        width: 100%;
+
+        .search-icon {
+          position: absolute;
+          left: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: $text-secondary;
+          font-size: 18px;
+        }
+
+        .search-input {
+          width: 100%;
+          height: 40px;
+          background-color: $bg-hover;
+          border: none;
+          border-radius: 20px;
+          padding: 0 16px 0 40px;
+          font-size: 15px;
+          color: $text-main;
+          outline: none;
+          transition: $transition;
+
+          &::placeholder {
+            color: $text-secondary;
+          }
+
+          &:focus {
+            background-color: #e4e6eb; // Đậm hơn chút khi focus
+          }
+        }
+      }
+    }
+  }
+
+  // --- RIGHT ACTIONS SECTION ---
+  .rightHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .icon-button {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: $bg-hover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      transition: $transition;
+
+      .icon {
+        font-size: 20px;
+        color: $text-main;
+      }
+
+      &:hover {
+        background-color: #d8dadf;
+      }
+
+      &.active {
+        background-color: #e7f3ff;
+        .icon { color: $primary-color; }
+      }
+
+      .badge {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        background-color: #e41e3f;
+        color: #fff;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 2px 5px;
+        border-radius: 10px;
+        border: 2px solid #fff;
+      }
+    }
+
+    .avatar-button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      margin-left: 4px;
+
+      .avatarweb {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}
