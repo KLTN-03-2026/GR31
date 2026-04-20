@@ -1,0 +1,409 @@
+// LeftSideBarHome.scss – PHIÊN BẢN ĐÃ SỬA NÚT TOGGLE HIỂN THỊ ĐÚNG
+.left-sidebar-menu {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  height: calc(100vh - 70px);
+  width: 260px;
+  background: #ffffff;
+  border-right: 2px solid #ff4444;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 999;
+  padding: 12px 8px;
+  overflow-x: hidden;
+
+  &.collapsed {
+    width: 72px;
+    padding: 12px 0;
+
+    .menu-label,
+    .User-Name {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .logo-container {
+      .logo-text {
+        opacity: 0;
+        visibility: hidden;
+      }
+      
+      // Khi collapsed, vẫn hiện nút toggle nhưng ở giữa
+      .toggle-sidebar-btn {
+        position: static;
+        transform: none;
+        margin-left: auto;
+        margin-right: auto;
+        
+        svg {
+          transform: rotate(180deg); // Xoay icon để chỉ mở rộng
+        }
+      }
+    }
+  }
+
+  // Logo container với icon menu (3 gạch)
+  .logo-container {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+    padding: 0 0px;
+    position: relative;
+
+    &:hover { 
+      background: rgba(255, 68, 68, 0.1);
+    }
+
+    .logo-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    svg.logo-icon {
+      width: 36px;
+      height: 36px;
+      fill: #ff4444;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      color: #333333;
+      font-size: 20px;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: all 0.35s ease;
+    }
+
+    // Nút menu (3 gạch) trong logo container - LUÔN HIỆN
+    .toggle-sidebar-btn {
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 68, 68, 0.1);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 68, 68, 0.2);
+      flex-shrink: 0;
+
+      &:hover {
+        background: rgba(255, 68, 68, 0.2);
+        transform: scale(1.05);
+      }
+
+      svg {
+        color: #ff4444;
+        font-size: 18px;
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+
+  // Menu
+  ul {
+    flex: 1;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    // Custom scrollbar
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 68, 68, 0.3);
+      border-radius: 2px;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 68, 68, 0.5);
+    }
+  }
+
+  li {
+    position: relative;
+    margin: 4px 2px;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+
+    .menu-item-content {
+      height: 52px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      color: #333333;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 12px;
+      transition: all 0.2s;
+      white-space: nowrap;
+      overflow: hidden;
+
+      .sidebar-icon {
+        width: 32px;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666666;
+        flex-shrink: 0;
+      }
+
+      .menu-label {
+        margin-left: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all 0.35s ease;
+      }
+    }
+
+    &:hover .menu-item-content {
+      background: rgba(255, 68, 68, 0.1);
+      color: #ff4444;
+
+      .sidebar-icon {
+        color: #ff4444;
+      }
+    }
+
+    &.active .menu-item-content {
+      background: rgba(255, 68, 68, 0.15);
+      color: #ff4444;
+      font-weight: 700;
+
+      .sidebar-icon {
+        color: #ff4444;
+      }
+    }
+
+    .active-indicator {
+      position: absolute;
+      left: 0; top: 0;
+      width: 4px;
+      height: 100%;
+      background: #ff4444;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .tooltip {
+      position: absolute;
+      left: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #333333;
+      color: #ffffff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.15s;
+      pointer-events: none;
+      z-index: 1001;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: -6px;
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+        width: 8px;
+        height: 8px;
+        background: #333333;
+      }
+    }
+  }
+
+  &.collapsed li:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  // User profile
+  .user-profile-navigate {
+    height: 64px;
+    padding: 0 12px;
+    margin: 12px 2px 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 16px;
+    background: rgba(255, 68, 68, 0.05);
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 1px solid rgba(255, 68, 68, 0.1);
+
+    &:hover { 
+      background: rgba(255, 68, 68, 0.1); 
+    }
+
+    .profile-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 12px;
+      border: 2px solid rgba(255, 68, 68, 0.3);
+    }
+
+    .User-Name {
+      color: #333333;
+      font-weight: 600;
+      font-size: 16px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      transition: all 0.35s ease;
+    }
+  }
+}
+
+/* Nút mở sidebar mobile - 3 gạch */
+.mobile-menu-btn {
+  position: fixed;
+  top: 86px;
+  left: 16px;
+  width: 44px;
+  height: 44px;
+  background: #ff4444;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 998;
+  transition: all 0.2s;
+  border: 2px solid #ff4444;
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
+
+  &:hover {
+    background: #ff3333;
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(255, 68, 68, 0.4);
+  }
+
+  .mobile-menu-icon {
+    color: #ffffff;
+    font-size: 24px;
+  }
+}
+
+/* Nút mở sidebar khi đóng (chỉ hiện trên desktop) - XÓA ĐI VÌ ĐÃ CÓ NÚT TRONG LOGO */
+.sidebar-toggle-btn {
+  display: none !important;
+}
+
+/* MOBILE – tự động mở full khi ≤768px, không collapse */
+@media (max-width: 768px) {
+  .left-sidebar-menu {
+    transform: translateX(-100%);
+    width: 280px !important;
+    border-right: 2px solid #ff4444;
+    top: 70px;
+    height: calc(100vh - 70px);
+
+    &.mobile-open {
+      transform: translateX(0);
+    }
+
+    &.collapsed {
+      width: 280px !important;
+    }
+
+    // Trên mobile, ẩn nút toggle trong logo
+    .logo-container .toggle-sidebar-btn {
+      display: none;
+    }
+
+    // Menu items trên mobile
+    li .menu-item-content {
+      font-size: 17px;
+      
+      .sidebar-icon {
+        font-size: 24px;
+      }
+    }
+  }
+
+  // Điều chỉnh nút menu mobile
+  .mobile-menu-btn {
+    top: 86px;
+    left: 16px;
+  }
+
+  // Overlay mobile
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+  }
+
+  body.mobile-sidebar-open::before {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+// Style cho main content để co giãn theo sidebar
+.home-view.with-sidebar {
+  .main-content {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &.sidebar-collapsed {
+      margin-left: 72px;
+      width: calc(100% - 72px);
+    }
+  }
+}
+
+// Trên mobile, main content chiếm full width
+@media (max-width: 768px) {
+  .home-view.with-sidebar {
+    .main-content {
+      margin-left: 0 !important;
+      width: 100% !important;
+      
+      &.sidebar-collapsed {
+        margin-left: 0 !important;
+        width: 100% !important;
+      }
+    }
+  }
+}
+.logo-icon {
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+
+  .left-sidebar-menu.collapsed & {
+    width: 44px !important;
+    height: 44px !important;
+  }
+}
