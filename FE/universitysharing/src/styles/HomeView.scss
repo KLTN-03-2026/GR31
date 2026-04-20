@@ -1,0 +1,78 @@
+.home-view {
+  background-color: #ececec;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  // Thêm class with-sidebar để áp dụng hiệu ứng co giãn
+  &.with-sidebar {
+    .main-content {
+      margin-left: 260px;
+      width: calc(100% - 260px);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      &.sidebar-collapsed {
+        margin-left: 72px;
+        width: calc(100% - 72px);
+      }
+    }
+  }
+
+  .header {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: white;
+  }
+
+  .main-content {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 70px);
+  }
+
+  .center-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    overflow-y: auto;
+  }
+
+  .post-input {
+    width: 100%;
+    max-width: 780px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    z-index: 3;
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+  }
+}
+
+// Trên mobile, main content chiếm full width
+@media (max-width: 768px) {
+  .home-view.with-sidebar {
+    .main-content {
+      margin-left: 0 !important;
+      width: 100% !important;
+      
+      &.sidebar-collapsed {
+        margin-left: 0 !important;
+        width: 100% !important;
+      }
+    }
+  }
+}
