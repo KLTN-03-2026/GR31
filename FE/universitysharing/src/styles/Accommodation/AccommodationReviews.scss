@@ -1,0 +1,359 @@
+// File: components/AccommodationComponent/AccommodationReviews.scss
+
+.reviews-section {
+  margin-bottom: 16px;
+
+  .reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 12px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: #e9ecef;
+    }
+
+    .reviews-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      color: #1976d2;
+      font-size: 14px;
+    }
+
+    .average-rating {
+      font-weight: 600;
+      color: #ff9800;
+      font-size: 14px;
+    }
+  }
+
+  .reviews-content {
+    margin-top: 12px;
+
+    .loading-reviews,
+    .error-reviews {
+      padding: 12px;
+      text-align: center;
+      color: #666;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+    }
+
+    .error-reviews {
+      color: #e53935;
+      background: #ffebee;
+      border-color: #ffcdd2;
+    }
+
+    .no-reviews {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+
+      p {
+        margin: 0;
+        font-style: italic;
+      }
+    }
+
+    .reviews-list {
+      .review-item {
+        background: white;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+        .review-header {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 12px;
+
+          .reviewer-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #f0f0f0;
+          }
+
+          .reviewer-info {
+            flex: 1;
+
+            .reviewer-name {
+              display: block;
+              font-weight: 600;
+              color: #333;
+              font-size: 14px;
+            }
+
+            .review-date {
+              font-size: 12px;
+              color: #666;
+            }
+          }
+
+          .review-actions {
+            display: flex;
+            gap: 4px;
+
+            .edit-btn,
+            .delete-btn {
+              background: none;
+              border: none;
+              cursor: pointer;
+              padding: 4px;
+              border-radius: 4px;
+              transition: background 0.2s ease;
+              color: #666;
+              font-size: 14px;
+
+              &:hover {
+                background: #f0f0f0;
+                color: #333;
+              }
+
+              &.delete-btn:hover {
+                color: #e53935;
+              }
+            }
+          }
+        }
+
+        .review-body {
+          .rating-stars {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 8px;
+
+            .star {
+              color: #ff9800;
+              font-size: 16px;
+            }
+          }
+
+          .review-comment {
+            color: #333;
+            line-height: 1.5;
+            margin: 0;
+            font-size: 14px;
+          }
+
+          .edit-form {
+            .rating-stars {
+              margin-bottom: 8px;
+            }
+
+            .edit-comment {
+              width: 100%;
+              padding: 8px;
+              border: 1px solid #e0e0e0;
+              border-radius: 6px;
+              font-size: 14px;
+              resize: vertical;
+              min-height: 60px;
+              font-family: inherit;
+
+              &:focus {
+                outline: none;
+                border-color: #1976d2;
+              }
+            }
+
+            .edit-buttons {
+              display: flex;
+              gap: 8px;
+              margin-top: 8px;
+              justify-content: flex-end;
+
+              .save-btn,
+              .cancel-btn {
+                padding: 6px 12px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 12px;
+                font-weight: 500;
+
+                &.save-btn {
+                  background: #1976d2;
+                  color: white;
+
+                  &:hover {
+                    background: #1565c0;
+                  }
+                }
+
+                &.cancel-btn {
+                  background: #f5f5f5;
+                  color: #666;
+
+                  &:hover {
+                    background: #e0e0e0;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .review-status {
+          margin-top: 8px;
+          padding: 4px 8px;
+          background: #fff3cd;
+          color: #856404;
+          border-radius: 4px;
+          font-size: 12px;
+          display: inline-block;
+        }
+      }
+    }
+
+    .add-review-section {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e9ecef;
+
+      .add-review-btn {
+        background: #1976d2;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background 0.2s ease;
+
+        &:hover {
+          background: #1565c0;
+        }
+      }
+
+      .new-review-form {
+        margin-top: 12px;
+        padding: 16px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+
+        .rating-stars {
+          margin-bottom: 12px;
+        }
+
+        .new-comment {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid #e0e0e0;
+          border-radius: 6px;
+          font-size: 14px;
+          resize: vertical;
+          min-height: 80px;
+          margin-bottom: 12px;
+          font-family: inherit;
+
+          &:focus {
+            outline: none;
+            border-color: #1976d2;
+          }
+        }
+
+        .form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+          margin-bottom: 12px;
+
+          .score-input {
+            padding: 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+
+            &:focus {
+              outline: none;
+              border-color: #1976d2;
+            }
+          }
+        }
+
+        .submit-review-btn {
+          background: #4CAF50;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 6px;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 500;
+          width: 100%;
+          transition: background 0.2s ease;
+
+          &:hover {
+            background: #45a049;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .reviews-section .reviews-header {
+    padding: 10px;
+  }
+
+  .reviews-section .reviews-content .new-review-form .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+// Fix visibility cho reviews header
+.sidebar-content {
+  min-height: 100vh;  // Đảm bảo sidebar cao đủ để scroll
+  padding-bottom: 80px;  // Padding dưới lớn để header không bị cắt
+  overflow-y: auto;  // Cho phép scroll nội bộ
+}
+
+.reviews-section {
+  margin-top: 20px;  // Khoảng cách rõ với phần "Đăng lúc"
+  border-top: 2px solid #e0e0e0;  // Dòng phân cách dày để dễ nhận biết
+  padding-top: 16px;
+}
+
+.reviews-header {
+  background: linear-gradient(135deg, #f0f8ff, #e3f2fd) !important;  // Nền gradient xanh nhạt nổi bật
+  border: 2px solid #1976d2 !important;  // Viền xanh đậm
+  border-radius: 8px !important;
+  padding: 12px 16px !important;  // Padding lớn hơn
+  font-size: 16px !important;  // Font to hơn
+  font-weight: bold !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;  // Hiệu ứng hover mượt
+
+  &:hover {
+    background: #e3f2fd !important;
+    transform: scale(1.02);  // Phóng to nhẹ khi hover
+  }
+
+  .reviews-title {
+    color: #1976d2 !important;  // Màu xanh cho text
+  }
+
+  .average-rating {
+    color: #ff9800 !important;  // Màu cam cho rating
+  }
+}
