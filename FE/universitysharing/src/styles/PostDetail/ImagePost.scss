@@ -1,0 +1,39 @@
+.image-post-container {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+
+  .media-content {
+    max-width: 100%;
+    max-height: 100vh;
+    object-fit: contain; // Giữ tỉ lệ ảnh
+    transition: opacity 0.3s ease;
+  }
+
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: background 0.2s;
+    z-index: 10;
+
+    &:hover { background: rgba(255, 255, 255, 0.4); }
+    &.prev { left: 16px; }
+    &.next { right: 16px; }
+  }
+}
