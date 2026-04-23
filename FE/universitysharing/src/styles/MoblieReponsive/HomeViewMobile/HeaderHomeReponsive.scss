@@ -1,0 +1,155 @@
+// HeaderHomeResponsive.scss - Mobile Optimized
+
+@media (max-width: 768px) {
+  // --- CLASS UTILS ---
+  .hide-mobile {
+    display: none !important;
+  }
+  
+  // Class dùng để ẩn nội dung (Logo + Right Icons) khi đang search
+  .hide-content {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute; // Để không chiếm chỗ
+  }
+
+  .header {
+    height: 56px; // Chuẩn chiều cao mobile app
+    padding: 0 12px !important;
+    gap: 0 !important;
+    position: sticky !important;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    justify-content: space-between;
+    background: #fff; // Đảm bảo nền trắng
+    border-bottom: 1px solid #e4e6eb;
+
+    // --- LOGO MOBILE ---
+    .logoWeb {
+      flex: 1;
+      justify-content: flex-start;
+      
+      .logo-container {
+        padding: 0;
+        gap: 8px;
+        
+        .logowebsite {
+          width: 32px !important;
+          height: 32px !important;
+        }
+
+        .app-name {
+          display: none !important; // Ẩn tên app cho gọn
+        }
+      }
+
+      // Nút search (Kính lúp) hiện ra trên mobile
+      .btn-search-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #f0f2f5;
+        margin-left: auto; // Đẩy sang phải nếu cần, hoặc xử lý bằng flex cha
+        margin-right: 8px; // Cách các icon bên phải
+
+        .search-icon-btn {
+          font-size: 18px;
+          color: #050505;
+        }
+      }
+    }
+
+    // --- RIGHT ICONS MOBILE ---
+    .rightHeader {
+      width: auto !important;
+      gap: 6px !important; // Khoảng cách icon hẹp hơn
+
+      .icon-button {
+        width: 36px !important;
+        height: 36px !important;
+        background: transparent !important; // Trong suốt để thoáng hơn
+
+        .icon {
+          font-size: 22px !important; // Icon to hơn chút để dễ bấm
+        }
+        
+        // Badge
+        .badge {
+            top: 2px !important;
+            right: 0px !important;
+            font-size: 10px !important;
+            min-width: 16px;
+            height: 16px;
+            padding: 0 4px !important;
+        }
+      }
+
+      .avatar-button {
+        width: 32px !important;
+        height: 32px !important;
+      }
+    }
+
+    // --- SEARCH OVERLAY (TRẠNG THÁI ACTIVE) ---
+    .search {
+      // Mặc định ẩn bằng class .hide-mobile
+      
+      // Khi Active (.active-mobile)
+      &.active-mobile {
+        display: flex !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        z-index: 1001;
+        padding: 0 10px;
+        align-items: center;
+        gap: 8px;
+        animation: fadeIn 0.2s ease-out;
+      }
+
+      .close-search-btn {
+        display: flex !important; // Hiện nút Back
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+        
+        .close-btn-search {
+          font-size: 24px;
+          color: #65676b;
+        }
+      }
+
+      .search-form {
+        flex: 1;
+        
+        .search-container {
+          .search-input {
+            height: 36px !important; // Input nhỏ gọn hơn
+            font-size: 16px !important; // Font to để không bị zoom trên iOS
+            padding-left: 36px !important;
+            background: #f0f2f5;
+          }
+          
+          .search-icon {
+            font-size: 16px !important;
+            left: 10px !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
