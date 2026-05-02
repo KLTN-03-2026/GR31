@@ -1,0 +1,50 @@
+# requirements.in
+
+# Web Framework và liên quan
+fastapi
+uvicorn
+Flask
+flask-cors
+httpx
+orjson
+
+# AI/LLM liên quan
+langchain
+langchain-community
+langchain-core
+langchain-google-genai<=2.1.2
+google-generativeai==0.8.5 # KHÔNG ghim phiên bản ở đây. Để pip-tools tìm.
+
+# Cơ sở dữ liệu
+pyodbc
+SQLAlchemy
+aioodbc
+redis
+psutil
+
+# Các thư viện chung khác mà bạn trực tiếp sử dụng
+pydantic
+pydantic-settings
+jwt
+requests
+rich
+typer
+click
+black
+isort
+watchfiles
+zstandard
+tiktoken
+tokenizers
+safetensors
+grpcio
+kubernetes
+aiohttp
+signalrcore
+websocket-client
+nltk
+emoji
+fuzzywuzzy
+humanfriendly
+joblib
+diskcache

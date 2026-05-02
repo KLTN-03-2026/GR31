@@ -1,0 +1,11 @@
+.git
+.gitignore
+__pycache__
+*.pyc
+*.env
+*.zip
+.venv
+venv
+*.log
+Dockerfile
+startup.sh # Không cần startup.sh trong container vì Dockerfile đã định nghĩa lệnh khởi động
