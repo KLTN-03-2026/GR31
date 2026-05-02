@@ -1,0 +1,620 @@
+// LandingPage.scss (Updated with Red Color Scheme)
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap');
+
+// Red Color Palette
+$primary-red: #dc2626;       // Màu đỏ chính
+$dark-red: #991b1b;          // Đỏ đậm
+$light-red: #fef2f2;         // Đỏ nhạt
+$accent-orange: #ea580c;     // Màu cam đậm nhấn
+$white: #ffffff;
+$light-gray: #f8f9fa;
+$medium-gray: #6c757d;
+$dark-gray: #2d3748;
+
+// Variables
+$primary-color: $primary-red;
+$secondary-color: $dark-red;
+$accent-color: $accent-orange;
+$background-color: $light-gray;
+$text-dark: $dark-gray;
+$text-light: $medium-gray;
+
+$border-radius: 16px;
+$box-shadow: 0 10px 40px rgba(220, 38, 38, 0.15);
+$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Mixins
+@mixin gradient-bg {
+  background: linear-gradient(135deg, $primary-red 0%, $dark-red 100%);
+}
+
+@mixin card-hover {
+  transition: $transition;
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(220, 38, 38, 0.25);
+  }
+}
+
+@mixin section-spacing {
+  padding: 100px 0;
+  @media (max-width: 768px) {
+    padding: 80px 20px;
+  }
+}
+
+// Base styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Be Vietnam Pro', 'Inter', sans-serif;
+  line-height: 1.6;
+  color: $text-dark;
+  overflow-x: hidden;
+}
+
+.landing-container {
+  width: 100%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// Hero Section
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 50%, #dc2626 100%);
+  color: $white;
+  text-align: center;
+  overflow: hidden;
+
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    .gradient-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(220, 38, 38, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(234, 88, 12, 0.3) 0%, transparent 50%);
+    }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
+  }
+
+  // DTU Logo Styles
+  .dtu-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+
+    .logo-letters {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+
+      .letter-d, .letter-t {
+        font-size: 6rem;
+        font-weight: 900;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+        
+        @media (max-width: 768px) {
+          font-size: 4rem;
+        }
+      }
+    }
+
+    .logo-text {
+      text-align: center;
+      
+      .university-text {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $white;
+        letter-spacing: 3px;
+        margin-bottom: 5px;
+        
+        @media (max-width: 768px) {
+          font-size: 1.5rem;
+          letter-spacing: 2px;
+        }
+      }
+      
+      .sharing-text {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, $accent-orange 0%, #f97316 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        
+        @media (max-width: 768px) {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+
+  .hero-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 50px;
+    font-weight: 400;
+    line-height: 1.6;
+    
+    .highlight {
+      font-weight: 600;
+      color: $accent-orange;
+    }
+    
+    @media (max-width: 768px) {
+      font-size: 1.1rem;
+    }
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    
+    .arrow-down {
+      width: 20px;
+      height: 20px;
+      border-right: 2px solid $accent-orange;
+      border-bottom: 2px solid $accent-orange;
+      transform: rotate(45deg);
+      margin: 10px auto 0;
+      animation: bounce 2s infinite;
+    }
+  }
+}
+
+// Button Styles
+.btn-primary {
+  padding: 16px 40px;
+  background: $accent-orange;
+  color: $white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: $transition;
+  text-decoration: none;
+  display: inline-block;
+
+  &:hover {
+    background: darken($accent-orange, 10%);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(234, 88, 12, 0.4);
+  }
+}
+
+.btn-secondary {
+  padding: 16px 40px;
+  background: transparent;
+  color: $white;
+  border: 2px solid $white;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background: $white;
+    color: $primary-red;
+    transform: translateY(-3px);
+  }
+}
+
+.btn-outline {
+  padding: 16px 40px;
+  background: transparent;
+  color: $primary-red;
+  border: 2px solid $primary-red;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background: $primary-red;
+    color: $white;
+    transform: translateY(-3px);
+  }
+}
+
+// Features Section
+.features-section {
+  @include section-spacing;
+  background: $light-gray;
+
+  .section-title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    color: $dark-red;
+    margin-bottom: 80px;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 5px;
+      background: $accent-orange;
+      border-radius: 5px;
+    }
+    
+    @media (max-width: 768px) {
+      font-size: 2.2rem;
+    }
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+  }
+
+  .feature-card {
+    background: $white;
+    padding: 50px 30px;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    @include card-hover;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, $primary-red, $accent-orange);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 25px;
+      background: linear-gradient(135deg, $light-red, $white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid $primary-red;
+
+      .emoji {
+        font-size: 2rem;
+      }
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: $dark-red;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: $text-light;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    .feature-image {
+      width: 100%;
+      max-width: 200px;
+      margin: 0 auto;
+      
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        opacity: 0.9;
+      }
+    }
+  }
+}
+
+// Testimonials Section
+.testimonials-section {
+  @include section-spacing;
+  background: $white;
+
+  .section-title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    color: $dark-red;
+    margin-bottom: 80px;
+    
+    @media (max-width: 768px) {
+      font-size: 2.2rem;
+    }
+  }
+
+  .testimonials-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    flex: 1;
+  }
+
+  .testimonial-card {
+    background: $white;
+    padding: 40px 30px;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    position: relative;
+    @include card-hover;
+    border-left: 5px solid $accent-orange;
+
+    .testimonial-content {
+      p {
+        font-size: 1.1rem;
+        color: $text-dark;
+        line-height: 1.7;
+        margin-bottom: 30px;
+        font-style: italic;
+        position: relative;
+        
+        &::before {
+          content: '"';
+          font-size: 4rem;
+          color: $primary-red;
+          opacity: 0.3;
+          position: absolute;
+          top: -20px;
+          left: -10px;
+          font-family: Georgia, serif;
+        }
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        img {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 3px solid $primary-red;
+        }
+
+        .author-info {
+          h4 {
+            font-weight: 700;
+            color: $dark-red;
+            margin-bottom: 5px;
+          }
+
+          span {
+            color: $text-light;
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+  }
+
+  .arrow-btn {
+    background: $primary-red;
+    color: $white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: $transition;
+    box-shadow: 0 5px 20px rgba(220, 38, 38, 0.3);
+
+    &:hover {
+      background: $accent-orange;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+// CTA Section
+.cta-section {
+  @include section-spacing;
+  background: linear-gradient(135deg, $light-red 0%, darken($light-red, 5%) 100%);
+  text-align: center;
+
+  .cta-content {
+    max-width: 700px;
+    margin: 0 auto;
+
+    .cta-logo {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+
+      .logo-letters {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+
+        .letter-d, .letter-t {
+          font-size: 4rem;
+          font-weight: 900;
+          color: $dark-red;
+          
+          @media (max-width: 768px) {
+            font-size: 3rem;
+          }
+        }
+      }
+
+      .logo-text {
+        text-align: center;
+        
+        .university-text {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: $dark-red;
+          letter-spacing: 2px;
+          margin-bottom: 3px;
+        }
+        
+        .sharing-text {
+          font-size: 2rem;
+          font-weight: 800;
+          color: $accent-orange;
+        }
+      }
+    }
+
+    h2 {
+      font-size: 3rem;
+      font-weight: 800;
+      color: $dark-red;
+      margin-bottom: 20px;
+      
+      @media (max-width: 768px) {
+        font-size: 2.2rem;
+      }
+    }
+
+    p {
+      font-size: 1.3rem;
+      color: $text-light;
+      margin-bottom: 50px;
+      line-height: 1.6;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+// Animations
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: rotate(45deg) translateY(0);
+  }
+  40% {
+    transform: rotate(45deg) translateY(-10px);
+  }
+  60% {
+    transform: rotate(45deg) translateY(-5px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-buttons,
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section-title {
+    font-size: 2rem !important;
+  }
+  
+  .dtu-logo .logo-letters {
+    gap: 10px !important;
+  }
+}
+
+// Utility Classes
+.text-gradient {
+  background: linear-gradient(135deg, $primary-red, $accent-orange);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-gradient {
+  @include gradient-bg;
+}
