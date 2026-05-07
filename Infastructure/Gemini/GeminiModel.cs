@@ -4,16 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Gemini
+namespace Infrastructure.Gemini;
+
+/// <summary>
+/// Cấu hình chính cho Gemini API
+/// </summary>
+public record GeminiModel
 {
-    public class GeminiModel
-    {
-        public  string ApiKey { get; set; }= string.Empty;
-        public string Endpoint { get; set; } = string.Empty;
-    }
-    public class GeminiModel2
-    {
-        public string ApiKey2 { get; set; } = string.Empty;
-        public string Endpoint2 { get; set; } = string.Empty;
-    }
+    public string ApiKey { get; init; } = string.Empty;
+    public string Endpoint { get; init; } = string.Empty;
+}
+
+/// <summary>
+/// Cấu hình dự phòng hoặc tài khoản thứ hai cho Gemini API
+/// </summary>
+public record GeminiModel2
+{
+    public string ApiKey2 { get; init; } = string.Empty;
+    public string Endpoint2 { get; init; } = string.Empty;
 }

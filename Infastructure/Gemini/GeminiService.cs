@@ -121,8 +121,11 @@ namespace Infrastructure.Gemini
                 "application/json"
             );
 
+           // 1. Tạo URL bằng string interpolation sạch sẽ hơn
             var requestUrl = $"{_geminiModel.Endpoint}?key={_geminiModel.ApiKey}";
-            var response = await _httpClient.PostAsync(requestUrl, jsonContent);
+
+            // 2. Gửi request trực tiếp với PostAsJsonAsync (giảm bớt các bước serialize thủ công)
+            var response = await _httpClient.PostAsJsonAsync(requestUrl, requestBody);
 
             if (!response.IsSuccessStatusCode)
             {

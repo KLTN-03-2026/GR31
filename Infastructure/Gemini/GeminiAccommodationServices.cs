@@ -101,10 +101,14 @@ namespace Infrastructure.Gemini
 
             // 1. Lấy 20 bài đăng mới nhất (đã bao gồm User)
             // Sử dụng hàm đã có trong AccommodationPostRepository.cs
-            var posts = await _postRepo.GetAllAccommodationPostAsync(null, 20); //
+            // 1. Lấy danh sách bài đăng
+            var posts = await _postRepo.GetAllAccommodationPostAsync(null, 20);
 
+            // 2. Trích xuất danh sách ID
             var postIds = posts.Select(p => p.Id).ToList();
-            var reviews = new List<AccommodationReview>();
+
+            // 3. Lấy tất cả reviews của các posts này trong 1 lần gọi DB duy nhất
+            var reviews = await _reviewRepo.GetReviewsByPostIdsAsync(postIds);
 
             // 2. Lấy 5 review đầu tiên cho mỗi bài đăng (đã bao gồm User)
             foreach (var id in postIds)
