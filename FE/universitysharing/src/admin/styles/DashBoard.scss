@@ -1,0 +1,100 @@
+// admin/styles/DashBoard.scss
+
+// ... giữ nguyên phần header-content cũ ...
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  gap: 20px;
+  .Avatar-admin {
+    display: flex;
+    align-items: center;
+    cursor: pointer; // Thêm con trỏ chuột
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover; // Đảm bảo ảnh không bị méo
+    }
+  }
+}
+
+// --- THÊM PHẦN CSS RESPONSIVE CHO CHART ---
+
+.dashboard-chart-container {
+  height: 350px; // Tăng nhẹ chiều cao chuẩn
+  width: 100%;
+  padding: 10px;
+  position: relative;
+
+  @media (max-width: 768px) {
+    height: 280px; // Giảm chiều cao trên mobile
+    padding: 0; // Bỏ padding để tận dụng tối đa diện tích
+  }
+}
+
+// Class cho trạng thái Loading hoặc Empty
+.chart-state-container {
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    height: 280px;
+  }
+  
+  p {
+    color: #999;
+    text-align: center;
+    padding: 0 10px;
+  }
+}
+
+// Tinh chỉnh Card của Ant Design trên mobile
+@media (max-width: 768px) {
+  .ant-card {
+    margin-bottom: 12px;
+    
+    .ant-card-head {
+      min-height: auto;
+      padding: 10px 16px;
+      
+      .ant-card-head-title {
+        font-size: 15px;
+        padding: 4px 0;
+        white-space: normal; // Cho phép tiêu đề xuống dòng
+      }
+    }
+    
+    .ant-card-body {
+      padding: 12px;
+    }
+  }
+}
+/* Trong admin/styles/DashBoard.scss */
+
+/* Mặc định ẩn nút menu trên desktop */
+.mobile-menu-trigger button {
+  display: none !important;
+}
+
+/* Hiển thị nút menu trên màn hình nhỏ hơn 992px (khớp với breakpoint lg của Sider) */
+@media (max-width: 992px) {
+  .mobile-menu-trigger button {
+    display: inline-flex !important;
+  }
+}
+
+/* Điều chỉnh lại layout chính khi sidebar bị ẩn */
+@media (max-width: 992px) {
+  /* Class ant-layout-sider-zero-width-trigger xử lý bởi SideBarMenu.js rồi */
+  
+  /* Cần đảm bảo nội dung chính không bị margin-left 200px nữa */
+  .ant-layout.ant-layout-has-sider > .ant-layout, 
+  .ant-layout {
+    margin-left: 0 !important;
+  }
+}

@@ -1,0 +1,294 @@
+// SCSS cho ConversationList với Nút Xóa và Modal
+
+.conversation-list {
+  width: 0;
+  background-color: #fff;
+  border-left: 1px solid #e9ecef;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+
+  &.open {
+    width: 280px;
+  }
+
+  .conversation-header {
+    padding: 16px;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0; // Ngăn header co lại
+
+    .return-chat {
+      display: none;
+      cursor: pointer;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #212529;
+    }
+
+    .new-chat-btn {
+      background-color: #4361ee;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #3a56d4;
+      }
+    }
+  }
+
+  .conversation-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .conversation-item {
+    display: flex; // *** THÊM: Sử dụng flexbox ***
+    justify-content: space-between; // *** THÊM: Đẩy nút xóa sang phải ***
+    align-items: center; // *** THÊM: Căn giữa theo chiều dọc ***
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: relative;
+
+    &:hover {
+      background-color: #f8f9fa;
+      .delete-btn { // *** THÊM: Hiển thị nút xóa khi hover ***
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    &.active {
+      background-color: #f1f3f5;
+    }
+
+    .conversation-info { // *** THÊM: Bọc title và preview ***
+        flex-grow: 1; // Cho phép phần này co giãn
+        margin-right: 8px; // Khoảng cách với nút xóa
+        overflow: hidden; // Quan trọng để ellipsis hoạt động
+    }
+
+    .conversation-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #212529;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 4px;
+    }
+
+    .conversation-preview {
+      font-size: 0.8rem;
+      color: #868e96;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .delete-btn { // *** THÊM: Style cho nút xóa ***
+      background: none;
+      border: none;
+      color: #dc3545; // Màu đỏ cảnh báo
+      cursor: pointer;
+      font-size: 1rem; // Kích thước icon
+      padding: 5px;
+      border-radius: 4px;
+      opacity: 0; // Mặc định ẩn
+      visibility: hidden; // Mặc định ẩn
+      transition: opacity 0.2s ease, visibility 0.2s ease, background-color 0.2s ease;
+      flex-shrink: 0; // Ngăn nút bị co lại
+
+      &:hover {
+        color: #c82333; // Đậm hơn khi hover
+        background-color: rgba(220, 53, 69, 0.1); // Nền nhẹ khi hover
+      }
+    }
+  }
+
+  .loading-conversations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    color: #6c757d;
+    font-size: 0.9rem;
+
+    .loading-spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(67, 97, 238, 0.2);
+      border-radius: 50%;
+      border-top-color: #4361ee;
+      animation: spin 1s linear infinite;
+      margin-bottom: 8px;
+    }
+  }
+
+  .empty-conversations {
+    text-align: center;
+    padding: 24px;
+    color: #6c757d;
+    font-size: 0.9rem;
+  }
+
+  .load-more-btn {
+    display: block;
+    width: calc(100% - 32px);
+    margin: 8px 16px;
+    padding: 8px;
+    background-color: transparent;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    color: #4361ee;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:disabled {
+      color: #adb5bd;
+      cursor: not-allowed;
+    }
+
+    &:not(:disabled):hover {
+      background-color: #f8f9fa;
+    }
+  }
+
+  .error-message {
+    padding: 16px;
+    color: #dc3545;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+}
+
+// *** THÊM: Style cho Modal ***
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(33, 37, 41, 0.5); // Nền mờ tối nhẹ
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; // Đảm bảo modal ở trên cùng
+}
+
+.modal-content {
+  background-color: #fff; // Nền trắng
+  padding: 25px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  color: #212529; // Màu chữ tối
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+
+  p {
+    margin-bottom: 25px;
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: #495057; // Màu chữ xám hơn
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 500;
+      transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+
+    .btn-cancel {
+      background-color: #6c757d; // Nút Hủy màu xám
+      color: #fff;
+      border: 1px solid #6c757d;
+
+      &:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+      }
+    }
+
+    .btn-confirm {
+      background-color: #dc3545; // Nút Xóa màu đỏ
+      color: #fff;
+      border: 1px solid #dc3545;
+
+      &:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+      }
+    }
+  }
+}
+
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .conversation-list {
+    position: fixed; // Đảm bảo nó phủ lên trên
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1000; // Đặt Z-index để nó nằm trên nội dung khác khi mở
+
+    &.open {
+      width: 100% !important;
+    }
+
+    .conversation-header {
+      .return-chat {
+        font-size: 20px;
+        display: flex;
+        color: #495057;
+      }
+    }
+  }
+}

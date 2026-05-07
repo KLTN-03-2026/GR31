@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class AIChatHistoryRepository : BaseRepository<AIChatHistory>, IAIChatHistoryRepository
+    public class AIChatHistoryRepository :
+     BaseRepository<AIChatHistory>, 
+     IAIChatHistoryRepository
     {
         public AIChatHistoryRepository(AppDbContext context) : base(context)
         {
@@ -14,7 +16,8 @@ namespace Infrastructure.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<List<AIChatHistory>> GetHistoriesByConversationId(Guid conversationId, Guid? lastMessageId, int pageSize)
+        public async Task<List<AIChatHistory>>
+         GetHistoriesByConversationId(Guid conversationId, Guid? lastMessageId, int pageSize)
         {
             const int MAX_PAGE_SIZE = 50;
             pageSize = Math.Min(pageSize, MAX_PAGE_SIZE);
@@ -46,9 +49,11 @@ namespace Infrastructure.Data.Repositories
             _context.AIChatHistories.RemoveRange(histories);
         }
 
-        public async Task<List<AIChatHistory>> GetHistoriesByConversationId(Guid conversationId)
+        public async Task<List<AIChatHistory>> 
+        GetHistoriesByConversationId(Guid conversationId)
         {
             var query = _context.AIChatHistories
+            //fix
                 .Where(ch => ch.ConversationId == conversationId)
                 .AsQueryable();
             return await query

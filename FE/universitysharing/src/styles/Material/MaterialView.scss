@@ -1,0 +1,103 @@
+// MaterialView.scss – PHIÊN BẢN CUỐI CÙNG, HOÀN HẢO 100%
+
+.home-view.with-sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 260px 1fr 280px;
+  grid-template-areas: "left center right";
+  min-height: calc(100vh - 70px);
+  width: 100vw;
+}
+
+/* Left Sidebar – KHÔNG fixed, để Grid quản lý */
+.left-sidebar-menu {
+  grid-area: left;
+  background: white;
+  border-right: 2px solid #ff4444;
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 999;
+
+  &.collapsed {
+    width: 72px !important;
+  }
+}
+
+/* Right Sidebar – KHÔNG fixed */
+.right-sidebar {
+  grid-area: right;
+  background: white;
+  border-left: 1px solid #e5e7eb;
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Center Content – Full chiều rộng giữa 2 sidebar */
+.center-content {
+  grid-area: center;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #f3f4f6;
+
+  .study-materials {
+    max-width: 100%;
+    margin: 0 auto;
+
+    .study-material-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+  }
+}
+
+/* Khi collapse → Grid tự thay đổi cột */
+.home-view.with-sidebar.sidebar-collapsed {
+  .main-content {
+    grid-template-columns: 72px 1fr 280px;
+  }
+}
+
+/* Mobile: chỉ hiện center */
+@media (max-width: 1024px) {
+  .main-content {
+    grid-template-columns: 1fr;
+    grid-template-areas: "center";
+  }
+
+  .left-sidebar-menu,
+  .right-sidebar {
+    display: none;
+  }
+
+  .center-content {
+    padding: 10px;
+  }
+
+  /* Nếu muốn drawer mobile */
+  .left-sidebar-menu.mobile-open {
+    display: block;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 280px;
+    height: calc(100vh - 70px);
+    z-index: 999;
+    box-shadow: 8px 0 20px rgba(0,0,0,0.2);
+  }
+}
+
+@media (max-width: 768px) {
+  .center-content .study-material-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+  }
+}

@@ -1,0 +1,119 @@
+// admin/styles/ReportFromUserContainer.scss
+
+.report-user-site {
+  border: 1px solid #cbcbcb;
+  background-color: #fff;
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
+  
+  // Desktop: Chiếm 40% (flex: 4 trong container cha)
+  flex: 4;
+  width: 40%; 
+  
+  // Mobile/Tablet: Chiếm 100%
+  @media (max-width: 1024px) {
+    width: 100%;
+    flex: auto;
+    margin-bottom: 20px;
+  }
+
+  display: flex;
+  flex-direction: column;
+  max-height: 600px; // Giới hạn chiều cao tổng thể
+  overflow: hidden; // Để scroll bên trong
+
+  &:hover {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.accept-reject-btn {
+  display: flex;
+  gap: 10px;
+  padding: 16px;
+  border-bottom: 1px solid #eaeaea;
+  background: #fff;
+  flex-wrap: wrap; // Cho phép nút xuống dòng nếu tên nút quá dài
+
+  button {
+    flex: 1; // Nút co giãn đều
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+
+    &.accept-report {
+      background-color: #ff4d4f; // Màu đỏ Antd
+      color: #fff;
+      &:hover { background-color: #ff7875; }
+    }
+
+    &.reject-report {
+      background-color: #f0f0f0;
+      color: #333;
+      &:hover { background-color: #d9d9d9; }
+    }
+  }
+}
+
+.report-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow-y: auto; // Scroll dọc
+  padding: 0;
+  flex: 1; // Chiếm hết chiều cao còn lại
+
+  .report-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f2f5;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #fafafa;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .name-reason {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .name-user-report {
+        font-size: 14px;
+        color: #1c1e21;
+      }
+
+      .reason-report, .violation-details, .processed-status {
+        font-size: 13px;
+        color: #65676b;
+        margin: 0;
+        line-height: 1.4;
+      }
+      
+      .status-report {
+          font-size: 12px;
+          display: inline-block;
+          margin-top: 4px;
+          &.pending { color: orange; }
+          &.resolved { color: green; }
+          &.rejected { color: red; }
+      }
+    }
+  }
+}

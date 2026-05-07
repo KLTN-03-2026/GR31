@@ -1,0 +1,76 @@
+// PostInput.scss
+// Dựa trên màu chủ đạo: #ff4444
+
+// --- Biến ---
+$primary-color: #ff4444;       // Màu chủ đạo (Đỏ/Hồng đậm)
+$text-color: #1f2937;          // Chữ chính
+$text-light-gray: #6b7280;     // Chữ phụ
+$bg-color: #ffffff;            // Nền trắng
+$border-color: #e5e7eb;        // Màu viền
+$input-bg: #f3f4f6;            // Nền input/hover nhẹ
+$shadow-base: 0 1px 3px rgba(0, 0, 0, 0.05);
+$radius-base: 12px;
+$transition-base: all 0.2s ease;
+
+.post-input {
+  display: flex;
+  align-items: center;
+  gap: 12px; // Khoảng cách giữa input và button
+  max-width: 780px;
+  // Khu vực chung (tạo thành một thanh nhập liệu)
+  background-color: $bg-color;
+  border: 1px solid $border-color;
+  border-radius: $radius-base;
+  padding: 12px 16px; // Padding cho cả container
+  box-shadow: $shadow-base;
+  cursor: pointer; // Toàn bộ div là khu vực click mở modal
+  transition: box-shadow 0.3s, border-color 0.3s;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Nổi hơn khi hover
+  }
+
+  // Input Field (Chỉ để hiển thị text, không cho nhập trực tiếp)
+  input[type="text"] {
+    flex-grow: 1; // Chiếm hết không gian còn lại
+    padding: 8px 10px;
+    border: none;
+    background-color: $input-bg; // Nền nhẹ hơn
+    border-radius: 8px;
+    color: $text-color;
+    font-size: 1rem;
+    cursor: pointer; // Giữ nguyên cursor pointer trên input
+
+    &::placeholder {
+      color: $text-light-gray;
+    }
+    
+    // Đảm bảo không có hiệu ứng focus khi click
+    &:focus {
+      outline: none;
+    }
+  }
+
+  // Button "Đăng"
+  button {
+    flex-shrink: 0; // Không bị co lại
+    background-color: $primary-color;
+    color: $bg-color; // Chữ trắng
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: $transition-base;
+    pointer-events: none; // Không click được nút này mà phải click div cha
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+}

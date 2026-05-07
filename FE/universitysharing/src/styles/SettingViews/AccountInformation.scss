@@ -1,0 +1,86 @@
+.change-password {
+  /* Inherit styles from .change-password in SettingsView.scss */
+  /* Override or extend specific styles for AccountInformation */
+
+  .back-button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    color: #1da1f2;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #1a91da;
+    }
+  }
+
+  h2 {
+    display: flex;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+
+      .icon {
+        font-size: 16px;
+        color: #1da1f2;
+      }
+
+      .verified-icon {
+        font-size: 14px;
+        color: #28a745;
+        margin-left: 8px;
+      }
+    }
+
+    .info-value {
+      padding: 12px 15px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+      background-color: #f5f8fa;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      color: #1a1a1a;
+      word-break: break-word;
+    }
+  }
+
+  .info-text {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    max-width: 400px;
+    text-align: center;
+
+    &.error {
+      color: #d32f2f;
+    }
+  }
+}

@@ -1,0 +1,364 @@
+// File: styles/Material/CreateReviewModal.scss
+
+.review-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+
+  .create-review-modal {
+    background: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    position: relative;
+    animation: slideUp 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+
+    .close-modal-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(0, 0, 0, 0.1);
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: background-color 0.2s ease;
+      color: #666;
+      font-size: 14px;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.2);
+        color: #333;
+      }
+    }
+
+    .modal-header {
+      padding: 32px 32px 0;
+      text-align: center;
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #333;
+        margin: 0 0 8px 0;
+      }
+
+      p {
+        color: #666;
+        margin: 0;
+        font-size: 14px;
+      }
+    }
+
+    .review-form {
+      padding: 24px 32px 32px;
+      max-height: calc(90vh - 120px);
+      overflow-y: auto;
+
+      .form-section {
+        margin-bottom: 24px;
+
+        .form-label {
+          display: block;
+          font-weight: 600;
+          color: #333;
+          margin-bottom: 12px;
+          font-size: 14px;
+        }
+
+        // Rating Stars
+        .rating-stars {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          margin-bottom: 8px;
+
+          .star-btn {
+            background: none;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+
+            &:hover {
+              transform: scale(1.2);
+            }
+
+            .star {
+              font-size: 32px;
+              transition: color 0.2s ease;
+
+              &.filled {
+                color: #ffc107;
+              }
+
+              &.empty {
+                color: #e0e0e0;
+              }
+            }
+          }
+        }
+
+        .rating-labels {
+          display: flex;
+          justify-content: space-between;
+          color: #666;
+          font-size: 12px;
+          padding: 0 8px;
+        }
+
+        // Comment Textarea
+        .comment-textarea {
+          width: 100%;
+          padding: 12px 16px;
+          border: 2px solid #e0e0e0;
+          border-radius: 8px;
+          font-size: 14px;
+          font-family: inherit;
+          resize: vertical;
+          transition: border-color 0.2s ease;
+          background: #fafafa;
+
+          &:focus {
+            outline: none;
+            border-color: #1976d2;
+            background: white;
+          }
+
+          &::placeholder {
+            color: #999;
+          }
+        }
+
+        .char-count {
+          text-align: right;
+          font-size: 12px;
+          color: #666;
+          margin-top: 4px;
+        }
+
+        // Checkbox
+        .checkbox-label {
+          display: flex;
+          align-items: flex-start;
+          cursor: pointer;
+          padding: 16px;
+          background: #f8f9fa;
+          border-radius: 8px;
+          transition: background-color 0.2s ease;
+          border: 1px solid transparent;
+
+          &:hover {
+            background: #e9ecef;
+          }
+
+          .checkbox-input {
+            display: none;
+
+            &:checked + .checkmark {
+              background: #1976d2;
+              border-color: #1976d2;
+
+              &::after {
+                display: block;
+              }
+            }
+          }
+
+          .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            margin-right: 12px;
+            margin-top: 2px;
+            position: relative;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+
+            &::after {
+              content: '';
+              position: absolute;
+              display: none;
+              left: 5px;
+              top: 1px;
+              width: 6px;
+              height: 10px;
+              border: solid white;
+              border-width: 0 2px 2px 0;
+              transform: rotate(45deg);
+            }
+          }
+
+          .checkbox-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            flex: 1;
+
+            .thumbs-up-icon {
+              color: #1976d2;
+              font-size: 18px;
+              margin-top: 2px;
+              flex-shrink: 0;
+            }
+
+            .checkbox-title {
+              font-weight: 600;
+              color: #333;
+              margin-bottom: 2px;
+              font-size: 14px;
+            }
+
+            .checkbox-description {
+              color: #666;
+              font-size: 12px;
+              line-height: 1.4;
+            }
+          }
+        }
+      }
+
+      // Form Actions
+      .form-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 32px;
+
+        .cancel-btn,
+        .submit-btn {
+          flex: 1;
+          padding: 12px 24px;
+          border: none;
+          border-radius: 8px;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .cancel-btn {
+          background: #f8f9fa;
+          color: #666;
+          border: 2px solid #e0e0e0;
+
+          &:hover:not(:disabled) {
+            background: #e9ecef;
+            border-color: #ccc;
+          }
+
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+        }
+
+        .submit-btn {
+          background: #1976d2;
+          color: white;
+
+          &:hover:not(:disabled) {
+            background: #1565c0;
+          }
+
+          &:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .review-modal-overlay {
+    padding: 10px;
+
+    .create-review-modal {
+      max-width: 100%;
+      max-height: 100vh;
+      border-radius: 0;
+
+      .modal-header {
+        padding: 24px 24px 0;
+      }
+
+      .review-form {
+        padding: 20px 24px 24px;
+        max-height: calc(100vh - 100px);
+
+        .form-section {
+          .rating-stars {
+            .star-btn .star {
+              font-size: 28px;
+            }
+          }
+        }
+
+        .form-actions {
+          flex-direction: column-reverse;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .review-modal-overlay {
+    .create-review-modal {
+      .modal-header {
+        h2 {
+          font-size: 1.25rem;
+        }
+      }
+
+      .review-form {
+        .form-section {
+          .checkbox-label {
+            padding: 12px;
+
+            .checkbox-content {
+              gap: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

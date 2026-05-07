@@ -1,0 +1,240 @@
+// FriendViewComponent.scss - Responsive Optimized
+.friend-request-container {
+  font-family: inherit;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: transparent; // Để background body lo liệu
+  box-shadow: none; // Bỏ shadow container tổng cho thoáng
+  max-width: 1200px;
+
+  .friend-request-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #050505;
+    border-bottom: none;
+    padding-bottom: 0;
+    text-transform: none; // Bỏ uppercase cho hiện đại
+  }
+
+  // --- MESSAGES ---
+  .error-message, .loading-message {
+    text-align: center;
+    padding: 20px;
+    color: #65676b;
+    font-size: 14px;
+  }
+
+  .no-requests-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: #65676b;
+    font-weight: 500;
+    background: transparent;
+    box-shadow: none;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  // --- GRID LAYOUT ---
+  .friend-request-grid {
+    display: grid;
+    // Tự động tính toán cột, tối thiểu 200px
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  // --- CARD ITEM ---
+  .friend-request-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e4e6eb;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .friend-info {
+      padding: 0; // Ảnh tràn viền
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      .Avatar-Friend {
+        width: 100%;
+        aspect-ratio: 1/1; // Luôn giữ tỉ lệ vuông
+        overflow: hidden;
+        background: #f0f2f5;
+        border: none;
+        border-radius: 0; // Bỏ bo góc ảnh để tràn viền trên
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover; // Ảnh phủ kín khung không bị méo
+          transition: transform 0.3s ease;
+        }
+      }
+
+      .friend-details {
+        padding: 12px 12px 0;
+        text-align: left;
+        width: 100%;
+      }
+
+      // Xử lý chung cho tên ở các component khác nhau (label hoặc div)
+      label, .friend-name {
+        font-weight: 600;
+        font-size: 16px;
+        color: #050505;
+        cursor: pointer;
+        display: block;
+        padding: 12px 12px 4px; // Padding cho phần tên
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; // Cắt tên nếu quá dài
+        margin: 0;
+        width: 100%;
+
+        &:hover { text-decoration: underline; }
+      }
+
+      .friend-meta {
+        padding: 0 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        margin-bottom: 8px;
+
+        .trust-score, .common-interests {
+          font-size: 12px;
+          color: #65676b;
+        }
+      }
+    }
+
+    .friend-actions {
+      padding: 12px;
+      margin-top: auto; // Đẩy nút xuống đáy card
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      button {
+        padding: 8px 0;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: background 0.2s;
+
+        &:disabled { opacity: 0.6; cursor: not-allowed; }
+      }
+
+      .confirm-btn {
+        background-color: #e7f3ff;
+        color: #1877f2;
+        &:hover:not(:disabled) { background-color: #dbeaff; }
+      }
+
+      .delete-btn {
+        background-color: #e4e6eb;
+        color: #050505;
+        &:hover:not(:disabled) { background-color: #d8dadf; }
+      }
+      
+      .profile-btn {
+        background-color: #f0f2f5;
+        color: #050505;
+         &:hover:not(:disabled) { background-color: #e4e6eb; }
+      }
+    }
+  }
+
+  .load-more-btn {
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+    padding: 12px;
+    background-color: #e4e6eb;
+    color: #050505;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    
+    &:hover:not(:disabled) { background-color: #d8dadf; }
+  }
+}
+
+// ==========================================
+// MOBILE RESPONSIVE (Max-width: 768px)
+// ==========================================
+@media (max-width: 768px) {
+  .friend-request-container {
+    padding: 10px; // Giảm padding lề
+    margin: 0;
+
+    .friend-request-title {
+      font-size: 18px;
+      margin-left: 4px;
+    }
+  }
+
+  // Chuyển Grid thành 2 cột trên mobile
+  .friend-request-grid {
+    grid-template-columns: repeat(2, 1fr); // 2 cột
+    gap: 8px; // Khoảng cách nhỏ hơn
+  }
+
+  .friend-request-card {
+    border-radius: 8px;
+    box-shadow: none;
+    border: 1px solid #e4e6eb; // Viền nhẹ
+
+    &:hover { transform: none; }
+
+    .friend-info {
+        // Tên font nhỏ hơn chút
+        label, .friend-name {
+            font-size: 14px;
+            padding: 8px 8px 4px;
+        }
+        
+        .friend-meta {
+            padding: 0 8px;
+            .trust-score, .common-interests { font-size: 11px; }
+        }
+    }
+
+    .friend-actions {
+      padding: 8px;
+      gap: 6px;
+
+      button {
+        font-size: 13px;
+        padding: 6px 0;
+      }
+    }
+  }
+}
+
+// Với màn hình rất nhỏ (iPhone SE, Fold)
+@media (max-width: 360px) {
+    .friend-request-grid {
+        grid-template-columns: 1fr; // Về 1 cột nếu màn quá bé
+    }
+}

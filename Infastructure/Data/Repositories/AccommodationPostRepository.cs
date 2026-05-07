@@ -10,7 +10,8 @@ using System.Linq.Expressions;
 namespace Infrastructure.Data.Repositories
 {
     // Giả định bạn có BaseRepository<T>
-    public class AccommodationPostRepository : BaseRepository<AccommodationPost>, IAccommodationPostRepository
+    public class AccommodationPostRepository : BaseRepository<AccommodationPost>,
+     IAccommodationPostRepository
     {
 
         public AccommodationPostRepository(AppDbContext context) : base(context)
@@ -23,6 +24,7 @@ namespace Infrastructure.Data.Repositories
 
             var query = _context.AccommodationPosts
                 .Include(p => p.User)
+
                 .Where(x => x.Status == StatusAccommodationEnum.Available && x.IsDelete == false) // Chỉ lấy bài viết đang mở
                 .OrderByDescending(x => x.CreatedAt) // Sắp xếp theo thời gian mới nhất
                 .AsQueryable();
@@ -103,8 +105,10 @@ namespace Infrastructure.Data.Repositories
                 .Include(p => p.User)  // Thêm include ở đây
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
-        // Các hàm khác kế thừa từ BaseRepository, ví dụ:
-        public override Task<bool> DeleteAsync(Guid id)
+        // Các hàm khác kế thừa từ BaseRepository, vd:
+        public override Task
+        <bool>
+         DeleteAsync(Guid id)
         {
             throw new NotImplementedException();
         }

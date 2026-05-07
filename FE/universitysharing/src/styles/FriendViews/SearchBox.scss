@@ -1,0 +1,52 @@
+// SearchBox.scss - Responsive
+.search-box-friend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 8px 14px;
+  border-radius: 20px; // Bo tròn hơn giống app mobile
+  border: 1px solid #e4e6eb;
+  transition: all 0.2s ease;
+
+  &:focus-within {
+    border-color: #1877f2;
+    box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+  }
+
+  .search-icon {
+    color: #65676b;
+    font-size: 18px;
+    flex-shrink: 0; // Không bị co lại khi màn hình nhỏ
+  }
+
+  input {
+    flex: 1;
+    width: 100%; // Quan trọng: Chiếm hết khoảng trống còn lại
+    min-width: 0; // Reset độ rộng tối thiểu
+    padding: 8px 0;
+    border: none;
+    font-size: 15px;
+    background-color: transparent;
+    color: #050505;
+    outline: none;
+
+    &::placeholder {
+      color: #b0b3b8;
+    }
+  }
+}
+
+// Mobile specific
+@media (max-width: 768px) {
+  .search-box-friend {
+    margin-bottom: 16px;
+    background: #f0f2f5; // Nền xám nhạt trên mobile cho nổi bật
+    border: none;
+    
+    input {
+      font-size: 16px; // Tránh zoom trên iOS
+    }
+  }
+}

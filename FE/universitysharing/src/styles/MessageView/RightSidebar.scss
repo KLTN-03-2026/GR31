@@ -1,0 +1,324 @@
+// RightSidebar.scss - Bố cục MỚI & Màu Sắc MỚI (Từ LeftSidebar: #ff4444)
+// **********************************************
+
+// --- Biến ---
+*,
+*::before,
+*::after {
+  box-sizing: border-box; 
+}
+
+// Bảng màu MỚI (Dựa trên màu #ff4444)
+$primary-color: #ff4444; // Màu Chủ Đạo - Đỏ/Hồng Đậm (Từ LeftSidebar)
+$secondary-color: #ff6347; // Màu nhấn nhẹ hơn (Tomato)
+$text-color: #1f2937; // Chữ chính
+$text-light-gray: #6b7280; // Chữ phụ
+$bg-color: #ffffff; // Nền chính
+$bg-hover: rgba(255, 68, 68, 0.1); // Hover item (Dùng màu chủ đạo với alpha)
+$bg-active: rgba(255, 68, 68, 0.15); // Active item (Dùng màu chủ đạo với alpha)
+$online-color: #10b981; // Xanh lá cây - Giữ nguyên cho Online để phân biệt
+$offline-color: #9ca3af; // Xám - Offline
+$border-color: #e5e7eb; // Đường viền/Ngăn cách
+$search-bg: #f3f4f6; // Nền thanh tìm kiếm
+$placeholder-color: #9ca3af;
+$danger-color: #ef4444;
+
+// Bóng đổ & Chuyển tiếp (Shadows & Transitions)
+$shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
+$transition-base: all 0.25s ease-in-out;
+
+// Khoảng cách & Bo góc (Spacing & Borders)
+$padding-base: 16px;
+$padding-item: 12px $padding-base; // Padding mới cho list items
+$radius-base: 8px;
+$radius-round: 50%;
+$sidebar-width: 280px;
+
+// --- Mixins ---
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// --- Styles ---
+
+.right-sidebar {
+  width: $sidebar-width;
+  background-color: $bg-color;
+  border-left: 1px solid $border-color;
+  padding: 0; 
+  overflow-y: auto;
+  box-shadow: $shadow-medium;
+  transition: $transition-base;
+  position: relative;
+
+  // Custom Scrollbar (Giữ nguyên)
+  scrollbar-width: thin;
+  scrollbar-color: darken($border-color, 10%) $bg-color;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: darken($border-color, 10%);
+    border-radius: 3px;
+    &:hover {
+      background-color: darken($border-color, 15%);
+    }
+  }
+
+  // Header MỚI - Cố định trên cùng
+  .sidebar-header {
+    @include flex-between;
+    padding: $padding-base;
+    position: sticky;
+    top: -16px;
+    background-color: $bg-color;
+    z-index: 2;
+    border-bottom: 1px solid $border-color;
+
+    h3 {
+      color: $primary-color; // Áp dụng màu chủ đạo
+      font-size: 1.25rem; 
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .action-button {
+      background: none;
+      border: none;
+      color: $text-light-gray;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: $radius-base/2;
+      transition: $transition-base;
+
+      &:hover {
+        background-color: $bg-hover;
+        color: $primary-color; // Hover đổi sang màu chủ đạo
+      }
+    }
+  }
+
+  // Search Section MỚI - Cố định dưới Header
+  .search-container {
+    padding: $padding-base;
+    position: sticky;
+    top: 57px; 
+    background-color: $bg-color;
+    z-index: 1;
+    border-bottom: 1px solid $border-color; 
+
+    .search-box {
+      position: relative;
+
+      .search-icon {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 0.5rem;
+        left: 0.75rem;
+        color: $placeholder-color;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px 15px 10px 40px;
+        border-radius: 20px; 
+        border: 1px solid $border-color;
+        background-color: $search-bg;
+        transition: $transition-base;
+        font-size: 0.9rem;
+        color: $text-color;
+
+        &::placeholder {
+          color: $placeholder-color;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: $primary-color; // Viền màu chủ đạo khi focus
+          background-color: $bg-color;
+          box-shadow: 0 0 0 3px rgba($primary-color, 0.15); // Shadow màu chủ đạo
+        }
+      }
+    }
+  }
+
+  // Friends List Section MỚI - Chia nhóm rõ ràng
+  .friends-list {
+    padding: $padding-base 0; 
+
+    .list-group-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: $primary-color; // Tiêu đề nhóm dùng màu chủ đạo
+      text-transform: uppercase;
+      margin: $padding-base/2 $padding-base $padding-base/2;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid rgba($primary-color, 0.1); // Đường kẻ nhẹ
+      padding-bottom: 4px;
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0 $padding-base; 
+      margin: 0;
+
+      li {
+        @include flex-between;
+        padding: $padding-item;
+        cursor: pointer;
+        transition: $transition-base;
+        margin-bottom: 4px;
+        border-radius: $radius-base;
+
+        &:hover {
+          background-color: $bg-hover;
+        }
+
+        &.active {
+          background-color: $bg-active;
+        }
+
+        .friend-info {
+          display: flex;
+          align-items: center;
+          flex: 1;
+          overflow: hidden;
+          gap: 12px;
+
+          .avatar-container {
+            position: relative;
+            flex-shrink: 0;
+
+            img {
+              width: 44px; 
+              height: 44px;
+              border-radius: $radius-round;
+              object-fit: cover;
+              border: 2px solid $border-color; 
+              transition: border-color 0.2s ease;
+              background-color: $border-color;
+            }
+
+            .status-dot {
+              position: absolute;
+              bottom: 0px;
+              right: 0px;
+              width: 12px;
+              height: 12px;
+              border-radius: $radius-round;
+              border: 3px solid $bg-color;
+              z-index: 10;
+              transition: background-color 0.2s ease;
+
+              &.online {
+                background-color: $online-color;
+                box-shadow: 0 0 5px rgba($online-color, 0.6);
+                animation: pulse 2s infinite ease-in-out;
+              }
+
+              &.offline {
+                background-color: $offline-color;
+              }
+            }
+          }
+
+          .name-status {
+            flex: 1;
+            overflow: hidden;
+
+            .friend-name {
+              font-weight: 600;
+              color: $text-color;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              font-size: 1rem;
+            }
+
+            .status-text {
+              font-size: 0.8rem;
+              color: $text-light-gray;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+
+              &.online-text {
+                color: $online-color; // Màu xanh cho text Online
+                font-weight: 500;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Loading and Error States
+  .loading-error, .error-message {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: $text-light-gray;
+
+    &.error-message {
+        color: $danger-color;
+    }
+  }
+
+  .loading-message {
+    padding: $padding-base;
+    @include flex-center;
+  }
+}
+
+// --- Animations (Giữ nguyên) ---
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.right-sidebar .friends-list ul li {
+  animation: fadeIn 0.3s ease forwards;
+  opacity: 0;
+
+  @for $i from 1 through 30 {
+    &:nth-child(#{$i}) {
+      animation-delay: $i * 0.04s;
+    }
+  }
+}

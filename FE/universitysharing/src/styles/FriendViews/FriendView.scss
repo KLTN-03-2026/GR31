@@ -1,0 +1,80 @@
+// File: styles/FriendViews/FriendView.scss
+
+.friend-tab-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px; // Khoảng cách giữa các nút
+  padding: 12px 16px;
+  background: white;
+  border-bottom: 1px solid #e4e6eb;
+  
+  // --- STICKY POSITIONING ---
+
+  top: 60px; // Chiều cao mặc định của Header Desktop
+  z-index: 99; // Thấp hơn Header (1000) nhưng cao hơn nội dung (1)
+  
+  // --- SCROLL LOGIC (Quan trọng cho Mobile) ---
+  width: 100%;
+  overflow-x: auto; // Cho phép cuộn ngang
+  white-space: nowrap; // Ngăn không cho xuống dòng
+  flex-wrap: nowrap; // Đảm bảo flex không tự xuống dòng
+  -webkit-overflow-scrolling: touch; // Cuộn mượt trên iOS
+
+  // Ẩn thanh cuộn xấu xí
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+  button {
+    // Quan trọng: Ngăn nút bị co lại khi màn hình nhỏ
+    flex: 0 0 auto; 
+    
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    color: #65676b;
+    border-radius: 20px; // Kiểu nút hình viên thuốc (Pill shape)
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.2, 0, 0.2, 1);
+
+    &:hover {
+      background-color: #f0f2f5;
+    }
+
+    &.active {
+      background-color: #e7f3ff; // Màu nền xanh nhạt
+      color: #1877f2; // Chữ xanh dương đậm
+    }
+  }
+}
+
+// --- RESPONSIVE MOBILE ---
+@media (max-width: 768px) {
+  .friend-tab-buttons {
+    // Điều chỉnh top khớp với Header Mobile (thường là 56px hoặc 60px)
+    top: 56px; 
+    padding: 10px 12px;
+    
+    // Tạo khoảng trống bên phải để nút cuối cùng không bị sát lề khi cuộn
+    padding-right: 12px; 
+    
+    button {
+      font-size: 13px; // Giảm font nhẹ cho gọn
+      padding: 6px 14px;
+    }
+  }
+}
+
+// Nội dung bên dưới tab
+.friend-tab-content {
+  background-color: #fff; // Hoặc trong suốt tùy thiết kế
+  min-height: calc(100vh - 150px);
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+

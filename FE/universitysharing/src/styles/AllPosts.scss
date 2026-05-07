@@ -1,0 +1,582 @@
+// AllPosts.scss - Phiên bản cập nhật với inline comment
+// --- VARIABLES ---
+$bg-body: #f4f5f7;
+$bg-card: #ffffff;
+$primary: #007bff;
+$text-main: #050505;
+$text-secondary: #65676b;
+$border-color: #e4e6eb;
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+$radius-card: 16px;
+$radius-round: 50px;
+$transition: all 0.2s ease-in-out;
+
+// --- ALL POSTS CONTAINER ---
+.all-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; // Tăng khoảng cách giữa các post
+  padding: 0;
+  max-width: 780px; // Khớp với PostInput (680px)
+  margin: 0 auto; // Căn giữa
+  width: 100%;
+}
+
+// --- SINGLE POST CARD ---
+.post {
+  background: $bg-card;
+  border-radius: $radius-card;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08); // Thêm shadow nhẹ như PostInput
+  overflow: hidden;
+  border: 1px solid $border-color;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); // Hiệu ứng hover như PostInput
+  
+  &:hover {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12); // Hiệu ứng hover
+    transform: translateY(-2px);
+  }
+
+  // Thêm border gradient trên cùng như PostInput
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff4444, #ff6b6b);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+// --- POST HEADER ---
+.header-post {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 12px; // Tăng padding để rộng hơn
+  position: relative;
+
+  .AvaName {
+    display: flex;
+    align-items: center;
+    gap: 12px; // Tăng khoảng cách
+
+    .avtardefaut {
+      width: 44px; // Tăng kích thước avatar
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ff4444; // Thêm border màu đỏ như PostInput
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+        border-color: #ff6b6b;
+      }
+    }
+
+    .user-info {
+      strong {
+        font-size: 16px; // Tăng font size
+        font-weight: 600;
+        color: $text-main;
+        cursor: pointer;
+        
+        &:hover {
+          color: #ff4444; // Màu hover đồng bộ
+          text-decoration: underline;
+        }
+      }
+
+      .status-time-post {
+        display: flex;
+        align-items: center;
+        gap: 8px; // Tăng khoảng cách
+        
+        .timePost {
+          font-size: 13px; // Tăng font size
+          color: $text-secondary;
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  .post-actions {
+    .btn-edit {
+
+      cursor: pointer;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background: rgba(255, 68, 68, 0.1); // Màu hover đồng bộ
+        color: #ff4444;
+      }
+    }
+  }
+}
+
+
+// --- POST CONTENT ---
+.content-posts {
+  padding: 0 20px 16px; // Tăng padding
+  font-size: 15px;
+  line-height: 1.5; // Tăng line-height
+  color: $text-main;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.Share-Post-origigin {
+  margin: 0 20px 16px; // Căn chỉnh margin
+  border: 1px solid #e4e6eb;
+  border-radius: 12px; // Tăng border-radius
+  overflow: hidden;
+  background: #f8f9fa;
+  border-left: 3px solid #ff4444; // Thêm accent color
+}
+// --- MEDIA CONTAINER ---
+.media-container {
+  padding: 0;
+  margin-bottom: 0px;
+
+  .media-grid {
+    display: grid;
+    gap: 2px; // Khoảng cách nhỏ giữa các media
+    width: 100%;
+    // Đặt chiều cao tối đa cho container ảnh 
+    // Giúp ảnh/video có tỷ lệ khung hình tốt hơn (ví dụ 4:3 hoặc 16:9)
+    max-height: 500px; 
+    
+    // Đảm bảo ảnh/video bên trong item luôn lấp đầy
+    img, video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+  }
+  
+  // Thêm media-item để đặt background tránh màu đen khi load
+  .media-item {
+      position: relative;
+      background: #e4e6eb; /* Màu nền xám nhạt để tránh màu đen */
+      overflow: hidden; /* Quan trọng để media không tràn ra ngoài */
+  }
+
+  /* --- CÁC LAYOUT GRID CỤ THỂ --- */
+
+  // Grid cho 1 item (giữ nguyên, chiếm 100%)
+  &.grid-1 {
+    .media-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+    }
+  }
+
+  // Grid cho 2 items (Chia làm 2 cột bằng nhau)
+  &.grid-2 {
+    .media-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: minmax(200px, 300px); /* Đặt chiều cao cố định cho 2 cột */
+    }
+  }
+
+  // Grid cho 3 items (1 ảnh lớn + 2 ảnh nhỏ bên dưới)
+  // Tùy theo mẫu, tôi đoán là 1 ảnh lớn trên và 2 ảnh nhỏ dưới, hoặc 1 bên trái và 2 bên phải
+  // Tôi chọn 1 bên trái (chiếm 2 hàng) và 2 bên phải (chiếm 1 hàng mỗi ảnh)
+  &.grid-3 {
+    .media-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, minmax(150px, 250px)); /* Chia làm 2 hàng */
+
+      .media-item:first-child {
+        grid-column: 1 / 2;
+        grid-row: 1 / 3; /* Ảnh đầu tiên chiếm 2 hàng */
+      }
+      .media-item:nth-child(2) {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+      }
+      .media-item:nth-child(3) {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+      }
+    }
+  }
+
+  // Grid cho 4 items (2 hàng, 2 cột)
+  &.grid-4 {
+    .media-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: minmax(150px, 200px);
+    }
+  }
+  
+  // Grid cho 5+ items (2 hàng, 2 cột + overlay ở ảnh thứ 4)
+  &.grid-5-plus {
+    .media-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: minmax(150px, 200px);
+    }
+  }
+
+
+  /* --- OVERLAY CHO 4+ items --- */
+  .more-images-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Nền đen trong suốt */
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5; /* Đặt z-index cao hơn ảnh/video */
+    cursor: pointer;
+  }
+}
+
+// --- POST ACTIONS SUMMARY ---
+.post-actions-summary {
+  display: flex;
+  justify-content: space-between; // Căn cách 2 khối con ra hai bên
+  align-items: center;
+  padding: 10px 16px; 
+  border-bottom: 1px solid $border-color; 
+  
+  .stats-group { // Nhóm thống kê ở bên trái
+    display: flex;
+    align-items: center;
+    // Giữ nguyên khoảng cách giữa các action-stat
+  }
+
+  .action-stat {
+    display: flex;
+    align-items: center;
+    gap: 4px; 
+    cursor: pointer;
+    margin-right: 16px; // Khoảng cách giữa các thống kê
+
+    &:hover {
+      opacity: 0.8; 
+    }
+    
+    // Đảm bảo icon tim thống kê vẫn là màu đỏ
+    .like-icon {
+      color: #f3425f; // Màu đỏ cho icon tim
+    }
+
+    span {
+      font-size: 14px;
+      font-weight: 500;
+      color: $text-main;
+    }
+  }
+
+// --- NÚT LIKE ĐỘC LẬP BÊN PHẢI ---
+  .action-button-like {
+    cursor: pointer;
+    padding: 4px; // Thêm padding để dễ click
+
+    .like-button {
+      font-size: 20px; 
+      color: $text-secondary; // Màu xám mặc định
+      transition: color 0.2s ease-in-out;
+    }
+    
+    .like-button.liked {
+      color: #f3425f; // Màu đỏ khi đã like
+    }
+
+    &:hover .like-button {
+      color: #f3425f; // Đổi màu đỏ khi hover
+    }
+  }
+}
+// --- INLINE COMMENT INPUT ---
+.inline-comment-input {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px; // Tăng padding
+  gap: 12px; // Tăng khoảng cách
+
+  .mini-avatar {
+    width: 36px; // Tăng kích thước avatar
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ff4444; // Thêm border
+  }
+
+  .comment-input-wrapper {
+    flex: 1;
+    background: #f0f2f5;
+    border-radius: 20px;
+    padding: 10px 16px; // Tăng padding
+    display: flex;
+    align-items: center;
+    gap: 10px; // Tăng khoảng cách
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #e4e6eb;
+    }
+
+    .comment-text-input {
+      flex: 1;
+      border: none;
+      background: none;
+      font-size: 15px; // Tăng font size
+      color: $text-main;
+      outline: none;
+      
+      &::placeholder {
+        color: $text-secondary;
+      }
+    }
+
+    .emoji-icon {
+      font-size: 20px; // Tăng kích thước icon
+      color: #65676b;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        color: #ff4444; // Màu hover đồng bộ
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+// --- RESPONSIVE ---
+@media (max-width: 768px) {
+  .all-posts {
+    margin: 0;
+    max-width: 100%;
+    padding: 0 12px; // Thêm padding hai bên
+  }
+  
+  .post {
+    border-radius: 12px; // Giữ border-radius trên mobile
+    border-left: 1px solid $border-color;
+    border-right: 1px solid $border-color;
+    
+    &:hover {
+      transform: none; // Loại bỏ hiệu ứng hover trên mobile
+    }
+  }
+
+  .header-post {
+    padding: 16px 16px 10px;
+    
+    .AvaName {
+      .avtardefaut {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+
+  .content-posts {
+    padding: 0 16px 12px;
+  }
+
+  .inline-comment-input {
+    padding: 12px 16px;
+    
+    .mini-avatar {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .all-posts {
+    padding: 0 8px;
+  }
+  
+  .post {
+    border-radius: 8px;
+  }
+
+  .header-post {
+    padding: 12px 12px 8px;
+    
+    .AvaName {
+      gap: 8px;
+      
+      .avtardefaut {
+        width: 36px;
+        height: 36px;
+      }
+    }
+  }
+  
+  .inline-comment-input {
+    padding: 10px 12px;
+    
+    .mini-avatar {
+      width: 28px;
+      height: 28px;
+    }
+  }
+}
+
+.no-posts {
+  text-align: center;
+  padding: 60px 20px;
+  color: #65676b;
+
+  p {
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+.load-more-indicator {
+  text-align: center;
+  padding: 20px;
+  color: #65676b;
+  font-size: 14px;
+}
+
+.Post-option-modal-Container {
+  position: relative;
+  z-index: 100;
+}
+
+// --- RESPONSIVE ---
+@media (max-width: 768px) {
+  .all-posts {
+    margin: 0;
+    max-width: 100%;
+  }
+  
+  .post {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .media-container {
+    &.two-items,
+    &.multi-items {
+      height: 250px;
+      
+      &.has-video .video-item {
+        height: 250px;
+      }
+    }
+
+    &.multi-items.has-video {
+      .media-item:first-child {
+        height: 180px;
+      }
+      
+      .media-item:not(:first-child) {
+        height: 68px;
+      }
+    }
+  }
+  
+  .header-post {
+    padding: 10px 12px 6px;
+    
+    .AvaName {
+      gap: 8px;
+      
+      .avtardefaut {
+        width: 34px;
+        height: 34px;
+      }
+    }
+  }
+  
+  .inline-comment-input {
+    padding: 8px 12px 10px;
+    
+    .mini-avatar {
+      width: 28px;
+      height: 28px;
+    }
+  }
+}
+// --- POST PRIVACY STATUS ---
+.status-time-post {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  .timePost {
+    font-size: 13px;
+    color: $text-secondary;
+    display: flex;
+    align-items: center;
+  }
+
+  .status-post {
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 6px;
+    border-radius: 4px;
+    line-height: 1.2;
+
+    // Default styling for privacy status
+    background-color: #f0f2f5;
+    color: #65676b;
+
+    // Specific styles based on privacy status
+    &[data-privacy="Công khai"] {
+      background-color: #e7f3ff;
+      color: #1b74e4;
+
+      &::before {
+        content: "🌍";
+        margin-right: 4px;
+        font-size: 10px;
+      }
+    }
+
+    &[data-privacy="Bạn bè"] {
+      background-color: #e6f4ea;
+      color: #2e7d32;
+
+      &::before {
+        content: "👥";
+        margin-right: 4px;
+        font-size: 10px;
+      }
+    }
+
+    &[data-privacy="Riêng tư"] {
+      background-color: #fce4ec;
+      color: #c2185b;
+
+      &::before {
+        content: "🔒";
+        margin-right: 4px;
+        font-size: 10px;
+      }
+    }
+  }
+}

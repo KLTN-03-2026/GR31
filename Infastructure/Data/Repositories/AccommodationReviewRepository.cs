@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class AccommodationReviewRepository : BaseRepository<AccommodationReview>, IAccommodationReviewRepository
+    //update
+    public class AccommodationReviewRepository : BaseRepository<AccommodationReview>, 
+    IAccommodationReviewRepository
     {
         public AccommodationReviewRepository(AppDbContext context) : base(context)
         {
@@ -31,7 +33,8 @@ namespace Infrastructure.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<AccommodationReview>> GetReviewsByAccommodationPostIdAsync(Guid accommodationPostId, Guid? lastAccommodationReviewId, int pageSize)
+        public async Task<List<AccommodationReview>> 
+        GetReviewsByAccommodationPostIdAsync(Guid accommodationPostId, Guid? lastAccommodationReviewId, int pageSize)
         {
             const int MAX_PAGE_SIZE = 50;
             pageSize = Math.Min(pageSize, MAX_PAGE_SIZE);

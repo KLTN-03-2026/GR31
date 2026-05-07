@@ -1,0 +1,374 @@
+// ChatBox.scss
+.chat-box-container {
+  position: relative;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  gap: 10px;
+  padding-right: 20px;
+  z-index: 1000;
+}
+
+.chat-box {
+  position: fixed;
+  bottom: 0;
+  right: 300px;
+  width: 350px;
+  height: 450px;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  margin-right: -9px;
+
+  &.minimized {
+    height: 50px;
+  }
+
+  .chat-header {
+    padding: 10px 15px;
+    background: #0084ff;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+    cursor: pointer;
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #5dff83;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 5px;
+
+      .action-btn {
+        background: none;
+        border: none;
+        color: white;
+        padding: 6px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        &.close-btn:hover {
+          background: rgba(255, 0, 0, 0.5);
+        }
+
+        svg {
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+  }
+
+  .chat-messagess {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 15px;
+    overflow-y: auto;
+    background: #f0f2f5;
+    max-height: 400px;
+    height: 100%;
+
+    .message {
+      margin-bottom: 10px;
+      display: flex;
+      //animation: slideIn 0.2s ease;
+
+      &.me {
+        justify-content: flex-end;
+
+        .message-content {
+          background: #0084ff;
+          color: white;
+          border-radius: 15px 15px 0 15px;
+        }
+
+        &.typing .message-content {
+          background: white;
+          padding: 5px 10px;
+
+          .typing-indicator span {
+            background: #999;
+          }
+        }
+      }
+
+      &.them {
+        justify-content: flex-start;
+
+        .message-content {
+          background: white;
+          color: #333;
+          border-radius: 15px 15px 15px 0;
+        }
+
+        &.typing .message-content {
+          background: white;
+          padding: 5px 10px;
+
+          .typing-indicator span {
+            background: #999;
+          }
+        }
+      }
+
+      .message-content {
+        position: relative;
+        max-width: 70%;
+        padding: 8px 12px;
+        margin-bottom: 4px;
+
+        p {
+          margin: 0;
+          word-break: break-word;
+          white-space: pre-wrap;
+          line-height: 1.4;
+          
+          // Style cho emoji trong tin nhắn
+          .emoji, img.emoji {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin: 0 1px;
+          }
+        }
+
+        .message-time {
+          display: inline-block;
+          font-size: 11px;
+          color: rgba(0, 0, 0, 0.45);
+          margin-left: 8px;
+          vertical-align: bottom;
+        }
+
+        .status {
+          display: inline-flex;
+          align-items: center;
+          margin-left: 8px;
+          font-size: 11px;
+          vertical-align: bottom;
+          line-height: 1;
+
+          &.sent {
+            color: rgba(0, 0, 0, 0.45);
+          }
+
+          &.delivered {
+            color: rgba(0, 0, 0, 0.45);
+          }
+
+          &.seen {
+            color: rgba(0, 0, 0, 0.45);
+          }
+        }
+      }
+    }
+  }
+
+  .message-input {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-top: 1px solid #eee;
+    position: relative;
+    
+    .input-tools {
+      display: flex;
+      gap: 5px;
+
+      .tool-btn {
+        background: none;
+        border: none;
+        color: #666;
+        padding: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          background: #f0f2f5;
+          color: #0084ff;
+        }
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+
+    textarea {
+    flex: 1;
+    border: none;
+    background: #f0f2f5;
+    border-radius: 20px;
+    padding: 8px 12px;
+    resize: none;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+    font-family: inherit;
+    line-height: 1.4;
+    min-height: 36px;
+    max-height: 100px;
+    overflow-y: auto;
+
+    &:focus {
+      background: #fff;
+      box-shadow: 0 0 0 1px #0084ff;
+    }
+
+    // Placeholder style
+    &::placeholder {
+      color: #65676b;
+      font-size: 13px;
+    }
+  }
+
+    .send-btn {
+      background: #f0f2f5;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #666;
+
+      &.active {
+        background: #0084ff;
+        color: white;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      &:hover:not(:disabled) {
+        background: #0084ff;
+        color: white;
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .typing-indicator {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 4px 0;
+
+    span {
+      width: 6px;
+      height: 6px;
+      background: #999;
+      border-radius: 50%;
+      animation: bounce 1.2s infinite;
+
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+    }
+  }
+}
+
+// Emoji Picker Styles
+.emoji-picker-container {
+  position: absolute;
+  bottom: 60px;
+  left: 10px;
+  z-index: 1001;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  
+  .EmojiPickerReact {
+    --epr-emoji-size: 24px;
+    --epr-category-label-height: 30px;
+    border: none !important;
+    
+    .epr-search-container {
+      padding: 8px;
+    }
+    
+    .epr-body {
+      padding: 0 8px;
+    }
+  }
+}
+
+.sort-name-friendly {
+  display: inline-block;
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
