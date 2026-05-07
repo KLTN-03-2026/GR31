@@ -17,7 +17,9 @@ namespace Infrastructure.Maps
 
         public GoogleMapsService(HttpClient httpClient, IOptions<MapsKeyModel> apiKey)
         {
+            // update
             _httpClient = httpClient;
+
             _apiKey = apiKey.Value.ApiKey;
         }
 
@@ -37,7 +39,8 @@ namespace Infrastructure.Maps
         }
 
 
-        public async Task<(double lat, double lng)> GetCoordinatesAsync(string address)
+        public async Task<(double lat, double lng)> 
+        GetCoordinatesAsync(string address)
         {
             try
             {
@@ -49,6 +52,7 @@ namespace Infrastructure.Maps
 
                 // 🌍 Gọi Google Maps API
                 var url = $"https://maps.googleapis.com/maps/api/geocode/json?address={Uri.EscapeDataString(address)}&key={_apiKey}";
+
                 var response = await _httpClient.GetStringAsync(url);
                 using var jsonDoc = JsonDocument.Parse(response);
 
