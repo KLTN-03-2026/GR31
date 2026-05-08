@@ -16,16 +16,28 @@ namespace Domain.Entities
         public double Longitude { get; private set; }
 
         public decimal Price { get; private set; }
-        public decimal? Area { get; private set; } // m2
-        public string? RoomType { get; private set; } // Loại phòng (Phòng trọ, Chung cư mini,...)
-        public string? Amenities { get; private set; } // Tiện ích (JSON/Chuỗi - Nơi Gemini phân tích)
-        public int? MaxPeople { get; private set; } // Số người tối đa trong phòng
-        public int? CurrentPeople { get; private set; } // Số người hiện tại trong phòng
-        public StatusAccommodationEnum Status { get; private set; } = StatusAccommodationEnum.Available; // 0: Đang tìm
-        public bool IsVerified { get; private set; } = false; // Bài đăng đã được xác minh
-        public bool IsDelete { get; private set; } = false;
-        public DateTime CreatedAt { get; private set; }
-        public DateTime? UpdatedAt { get; private set; }
+
+public decimal? Area { get; private set; } // m²
+
+public string? RoomType { get; private set; } // Phòng trọ, Chung cư mini,...
+
+public string? Amenities { get; private set; } // JSON / text (AI xử lý)
+
+public int? MaxPeople { get; private set; }
+
+public int? CurrentPeople { get; private set; }
+
+public StatusAccommodationEnum Status { get; private set; } 
+    = StatusAccommodationEnum.Available;
+
+public bool IsVerified { get; private set; } = false;
+
+public bool IsDeleted { get; private set; } = false;
+
+public DateTime CreatedAt { get; private set; } 
+    = DateTime.UtcNow;
+
+public DateTime? UpdatedAt { get; private set; }
 
         // Navigation Properties
         public User? User { get; private set; }
@@ -76,22 +88,23 @@ namespace Domain.Entities
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void ChangeStatus(StatusAccommodationEnum newStatus)
+       public void Verify()
         {
-            Status = newStatus;
-            UpdatedAt = DateTime.UtcNow;
+            IsVerified = true;
+            Touch();
         }
 
-        public void MarkAsVerified(bool isVerified = true)
+        public void Unverify()
         {
-            IsVerified = isVerified;
-            UpdatedAt = DateTime.UtcNow;
+            IsVerified = false;
+            Touch();
         }
-        public void Delete()
-        {
-            IsDelete = true;
-            UpdatedAt = DateTime.UtcNow;
-        }
+
+public void SoftDelete()
+{
+    IsDelete = true;
+    Touch();
+}
     }
 
 }
